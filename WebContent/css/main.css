@@ -1,0 +1,24 @@
+html { 
+  background: url('background.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body{
+	height: 100%;
+	width: 50%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	padding-left: 5%;
+	padding-right: 5%;
+    background: rgba(214, 245, 255, .7);
+}
+
+section.help{
+	padding: 3%;
+	background: rgb(93, 167, 227);
+	color: rgb(255, 255, 255);
+	width: 80%
+}

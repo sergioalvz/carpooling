@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <title>carpooling | Te ayudamos a viajar mejor.</title>
 </head>
 <body>
 	<h1>carpooling</h1>
 	<h2>Te ayudamos a viajar mejor</h2>
 
-	<h3>Qué hacer</h3>
-	<p>Bienvenido a la web de carpooling. Ahora mismo estás disfrutando
-		de un primer prototipo donde te mostramos algunas de las
-		características que te ayudarán a que tus viajes al trabajo sean a la
-		vez más divertidos y económicos que nunca.</p>
+	<section class="help">
+		<h3>Qué hacer</h3>
+		<p>Bienvenido a la web de carpooling. Ahora mismo estás
+			disfrutando de un primer prototipo donde te mostramos algunas de las
+			características que te ayudarán a que tus viajes al trabajo sean a la
+			vez más divertidos y económicos que nunca.</p>
 
-	<p>Utilizando el formulario inferior podrás seleccionar cual es tu
-		ciudad de origen, así como donde está tu lugar de trabajo.</p>
+		<p>Utilizando el formulario inferior podrás seleccionar cual es tu
+			ciudad de origen, así como donde está tu lugar de trabajo.</p>
 
-	<p>A continuación, nosotros te proponemos algunos ejemplos de
-		viajeros que comparten tu lugar de origen y se dirigen también a tu
-		mismo destino.</p>
+		<p>A continuación, nosotros te proponemos algunos ejemplos de
+			viajeros que comparten tu lugar de origen y se dirigen también a tu
+			mismo destino.</p>
 
-	<p>Gracias a los mapas de Google Maps, podrás añadir tus propios
-		marcadores así como ver en que lugar se encuentran aquellos viajeros
-		que te sugerimos.</p>
+		<p>Gracias a los mapas de Google Maps, podrás añadir tus propios
+			marcadores así como ver en que lugar se encuentran aquellos viajeros
+			que te sugerimos.</p>
 
-	<p>Por último, queriendo siempre echarte una mano en tu día a día,
-		te sugerimos algunas gasolineras que te puedan pillar de camino y,
-		además, te damos la información acerca de sus precios para que podáis
-		buscar siempre la ruta más óptima y económica.</p>
-	<p>
-		Recuerda que, aunque esto sea un prototipo y no vayamos a guardar
-		información sobre tus rutas ahora mismo, te damos la opción de que nos
-		envíes la ruta que hayas preparado para que la mostremos en la sección
-		de <b>Rutas</b> y sirva de ejemplo para futuros visitantes.
-	</p>
+		<p>Por último, queriendo siempre echarte una mano en tu día a día,
+			te sugerimos algunas gasolineras que te puedan pillar de camino y,
+			además, te damos la información acerca de sus precios para que podáis
+			buscar siempre la ruta más óptima y económica.</p>
+		<p>
+			Recuerda que, aunque esto sea un prototipo y no vayamos a guardar
+			información sobre tus rutas ahora mismo, te damos la opción de que
+			nos envíes la ruta que hayas preparado para que la mostremos en la
+			sección de <b>Rutas</b> y sirva de ejemplo para futuros visitantes.
+		</p>
+	</section>
+	<section>
+		<form>
+			<input type="text" placeholder="Tu origen..."  maxlength="20" size="25" id="from"/>
+			<input type="text" placeholder="Tu destino..." maxlength="20" size="25" id="to"/>
+		</form>
+		
+		<div id="map_canvas"></div>
+		
+	</section>
 </body>
 </html>
