@@ -2,6 +2,8 @@ package org.miw.sig.carpooling.presentation;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.miw.sig.carpooling.persistence.CarpoolingDAO;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ShowRoutesAction extends ActionSupport {
@@ -15,8 +17,7 @@ public class ShowRoutesAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-	// FIXME request.setAttribute("routes", new
-	// RoutesDataService().getRoutes());
+	request.setAttribute("routes", new CarpoolingDAO().getRoutes());
 	return ActionSupport.SUCCESS;
     }
 }
