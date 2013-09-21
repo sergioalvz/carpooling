@@ -1,0 +1,4 @@
+2013-09-22 01:15:38,451 - org.miw.sig.carpooling.persistence.JDBCHelper - ERROR - Access denied for user 'bmg'@'%' to database 'routes'
+2013-09-22 01:18:10,948 - org.miw.sig.carpooling.persistence.JDBCHelper - ERROR - Unknown database 'routes'
+2013-09-22 01:19:20,069 - org.miw.sig.carpooling.persistence.JDBCHelper - ERROR - Unknown database 'routes'
+2013-09-22 01:19:54,242 - org.miw.sig.carpooling.persistence.JDBCHelper - ERROR - Unknown database 'routes'
