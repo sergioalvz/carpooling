@@ -9,6 +9,12 @@
 		<action name="Home">
 			<result>/WEB-INF/jsp/home.jsp</result>
 		</action>
+		<action name="ShowRoutesAction" class="org.miw.sig.carpooling.presentation.ShowRoutesAction">
+			<result>/WEB-INF/jsp/routes.jsp</result>
+		</action>
+		<action name="ShowAboutAction">
+			<result>/WEB-INF/jsp/about.jsp</result>
+		</action>
 	</package>
 
 </struts>

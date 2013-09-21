@@ -31,10 +31,16 @@ nav h1{
 	font-size: 1em;
 }
 
-nav a{
+nav ul{
 	float: right;
+}
+
+nav ul li{
+	display: inline-block;
+}
+
+nav a{
 	font-weight: bold;
-	padding-top: 1%;
 	font-size: 1em;
 }
 
@@ -68,7 +74,7 @@ div.right_column{
 
 section.help{
 	padding: 3%;
-	background-color: rgb(93, 167, 227);
+	background-color: rgba(93, 167, 227, .7);
 	color: rgb(255, 255, 255);
 	width: 80%
 }
