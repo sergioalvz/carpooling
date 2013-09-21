@@ -7,6 +7,7 @@
 <body>
 	<nav>
 		<h1>carpooling | Te ayudamos a viajar mejor</h1>
+		<a href="about.html">About</a>
 	</nav>
 	<div id="main_wrapper">
 		<div class="left_column">
@@ -42,7 +43,8 @@
 			<section class="form">
 				<form>
 					<input type="text" placeholder="Tu origen..." maxlength="20" size="25" id="from" />
-					 <input type="text" class="default_hide" placeholder="Tu destino..." maxlength="20" size="25" id="to" />
+					<input type="text" placeholder="Tu destino..." maxlength="20" size="25" id="to" />
+					<button id="#generateRouteButton" type="button">Crear ruta</button>
 				</form>
 			</section>
 		</div>
