@@ -88,6 +88,7 @@ input{
 
 button{
 	height: 4em;
+	width: 74%;
 	background-color: rgb(93, 167, 227);
 	color: rgb(255, 255, 255);
 }

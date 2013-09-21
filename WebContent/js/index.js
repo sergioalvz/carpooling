@@ -1,13 +1,15 @@
 $(document).ready(function(){
-	var from = '';
-	var to = '';
-	
-	$('#generateRouteButton').click(function(){
-		from = $('#from').val();
-		to = $('#to').val();
+	$('#createRoute').click(function(){
+		var from = $('#from').val();
+		var to = $('#to').val();
 		if(from === '' || to === ''){
-			//TODO generate the route.
-			alert('TODO BLANCO NO!');
+			alert('Debes escribir un origen y un destino para generar el mapa :(');
+		}else{
+			lauchMap(from, to);
 		}
 	});
 });
+
+function lauchMap(from, to){
+	//TODO logic for lauching the map.
+}

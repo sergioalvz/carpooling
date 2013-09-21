@@ -2,11 +2,11 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<title>carpooling | Te ayudamos a viajar mejor.</title>
+<title>carpooling | Ahorras tú. Ahorramos todos.</title>
 </head>
 <body>
 	<nav>
-		<h1>carpooling | Te ayudamos a viajar mejor</h1>
+		<h1>carpooling | Ahorras tú. Ahorramos todos.</h1>
 		<a href="about.html">About</a>
 	</nav>
 	<div id="main_wrapper">
@@ -44,7 +44,8 @@
 				<form>
 					<input type="text" placeholder="Tu origen..." maxlength="20" size="25" id="from" />
 					<input type="text" placeholder="Tu destino..." maxlength="20" size="25" id="to" />
-					<button id="#generateRouteButton" type="button">Crear ruta</button>
+					<br />
+					<button id="createRoute" type="button">Crear ruta</button>
 				</form>
 			</section>
 		</div>
