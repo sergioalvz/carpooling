@@ -37,7 +37,7 @@
 			sección de <b>Rutas</b> y sirva de ejemplo para futuros visitantes.
 		</p>
 	</section>
-	<section>
+	<section class="form">
 		<form>
 			<input type="text" placeholder="Tu origen..."  maxlength="20" size="25" id="from"/>
 			<input type="text" placeholder="Tu destino..." maxlength="20" size="25" id="to"/>
