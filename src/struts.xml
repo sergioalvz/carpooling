@@ -15,5 +15,8 @@
 		<action name="ShowAboutAction">
 			<result>/WEB-INF/jsp/about.jsp</result>
 		</action>
+		<action name="SaveRouteAction" class="org.miw.sig.carpooling.presentation.SaveRouteAction">
+			<result>/WEB-INF/jsp/routes.jsp</result>
+		</action>
 	</package>
 </struts>

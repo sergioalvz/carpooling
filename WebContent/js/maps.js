@@ -6,6 +6,15 @@ var infowindow = null;
 var travelerName = [ "Sergio", "Daniel", "Pablo", "Natalia", "Susana", "Juan", "Vanesa", "Gonzalo", "Lucía" ];
 var markers = [];
 
+var fromMarker = {
+	title: '',
+	location: null
+};
+var toMarker ={
+	title: '',
+	location: null
+};
+
 function lauchMap(from, to) {
 	_initialize();
 	_geocodingPoints(from, to);
@@ -65,11 +74,11 @@ function _initialize() {
 }
 
 function _geocodingPoints(from, to) {
-	_geocodingPoint(from);
-	_geocodingPoint(to);
+	_geocodingPoint(from, fromMarker);
+	_geocodingPoint(to, toMarker);
 }
 
-function _geocodingPoint(point) {
+function _geocodingPoint(point, myMarker) {
 	geocoder.geocode({
 		'address' : point
 	}, function(results, status) {
@@ -80,6 +89,10 @@ function _geocodingPoint(point) {
 				title : point
 			});
 			markers.push(marker);
+			
+			myMarker.title = point;
+			myMarker.location = results[0].geometry.location;
+			
 		} else {
 			alert("Lo sentimos, " + point + " no hemos podido localizarlo :(");
 		}

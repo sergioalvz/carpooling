@@ -47,8 +47,8 @@
 					
 					<button type="button" id="createRoute">Generar Ruta</button>
 					<form>
-						<button type="submit" id="saveRoute">Guardar</button>
-						<label>Tu email <input type="email" /></label>
+						<button type="button" id="saveRoute">Guardar</button>
+						<label>Tu email <input type="email" id="user_mail"/></label>
 					</form>
 				</div>
 			</div>
@@ -62,6 +62,10 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="js/index.js"></script>
 	<script src="js/maps.js"></script>
-	<input type="hidden" id="savedRoute" />
+	
+	<s:form action="SaveRouteAction" method="post">
+		<s:hidden name="savedRoute" id="savedRoute"/>   
+	   	<s:submit key="submit" cssClass="hidden"/>
+   </s:form>	
 </body>
 </html>

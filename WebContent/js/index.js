@@ -17,12 +17,24 @@ $(document).ready(function(){
 	});	
 	
 	$('#saveRoute').click(function(){
-		var route = '';
-		
-		route += $('#from').val() + '|';
-		var to = $('#to').val();	
-		
-		
+		if($('#user_mail').val() === ''){
+			alert('¡Debe indicar un email a su petición para guardar la ruta!');
+		}else{		
+			var route = '';
+			
+			route += $('#user_mail').val() + '@@@';
+			route += 'from' + '@@' + fromMarker.title + '@@' + fromMarker.location.lat() + '@@' + fromMarker.location.lng() + '@@@';
+			route += 'to' + '@@' + toMarker.title + '@@' + toMarker.location.lat() + '@@' + toMarker.location.lng() + '@@@';		
+			
+			for(var i = 0; i < markers.length; i++){
+				var marker = markers[i];
+				route += 'waypoint' + '@@' + marker.title + '@@';
+				route += marker.position.lat() + '@@' + marker.position.lng() + '@@@';
+			}		
+			
+			$('#savedRoute').val(route);
+			$('input.hidden').click(); //There is only hidden the Submit button input
+		}
 	});
 });
 
