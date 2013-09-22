@@ -61,7 +61,11 @@
 		</div>
 		<div class="right_column">
 			<div id="map_canvas" ></div>
-			<div class="map_tools default_hide"></div>
+			<div class="map_tools default_hide">
+				<h3>Los siguientes viajeros viven cerca de ti y se dirigen a tu mismo destino</h3>
+				<ul id="closer_travelers">
+				</ul>
+			</div>
 		</div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

@@ -69,15 +69,11 @@ function _generateRandomTravelers(origin){
 					title: _obtainRandomName()
 				});
 				
-				marker.setMap(map);
-				var infowindow = new google.maps.InfoWindow({
-					content: marker.title,
-					size: new google.maps.Size(50,50),
-					position: marker.position
+				google.maps.event.addListener(marker,'click',function() {
+				  alert(this.title);
 				});
-				google.maps.event.addListener(marker, 'click', function() {
-					    infowindow.open(map, marker);
-				});
+				
+				$("#closer_travelers").append('<li>' + marker.title + '<input type="checkbox" checked="true"></li>');
 			}
 		} 
 	});	
