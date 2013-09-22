@@ -10,3 +10,12 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function showHideMarker(event){
+	var split = (event.currentTarget.id).split('|');	
+	if(event.currentTarget.checked){
+		showMarker(split[0], split[1], split[2]);
+	}else{
+		hideMarker(split[0], split[1], split[2]);
+	}
+}

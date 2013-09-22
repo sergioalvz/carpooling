@@ -3,115 +3,164 @@ var directionsService = null;
 var directionsDisplay = null;
 var geocoder = null;
 
-var travelerName = ["Sergio", "Daniel", "Pablo", "Natalia", "Susana", "Juan", "Vanesa", "Gonzalo", "LucÃ­a"];
+var travelerName = [ "Sergio", "Daniel", "Pablo", "Natalia", "Susana", "Juan",
+		"Vanesa", "Gonzalo", "Lucía" ];
+var markers = [];
 
-function lauchMap(from, to){
+function lauchMap(from, to) {
 	_initialize();
 	_geocodingPoints(from, to);
 	_generateRandomTravelers(from);
 }
 
-function _initialize(){
-	var latlng = new google.maps.LatLng(43.354810,-5.851805);
+function showMarker(title, lat, lng) {
+	if (map) {
+		$.each(markers, function(index, value) {
+			if (value.title === title
+					&& value.position.lat().toString() === lat
+					&& value.position.lng().toString() === lng) {
+				value.setMap(map);
+			}
+		});
+	}
+}
+
+function hideMarker(title, lat, lng) {
+	if (map) {
+		$.each(markers, function(index, value) {
+			if (value.title === title
+					&& value.position.lat().toString() === lat
+					&& value.position.lng().toString() === lng) {
+				value.setMap(null);
+			}
+		});
+	}
+}
+
+function _initialize() {
+	var latlng = new google.maps.LatLng(43.354810, -5.851805);
 	var misOpciones = {
-		zoom: 10,
-		heading: 90,
-		tilt: 45,
-		center: latlng,
-		mapTypeControl: true,
-		mapTypeControlOptions: {
-		  style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+		zoom : 10,
+		heading : 90,
+		tilt : 45,
+		center : latlng,
+		mapTypeControl : true,
+		mapTypeControlOptions : {
+			style : google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		},
-		zoomControl: true,
-		zoomControlOptions: {
-		  style: google.maps.ZoomControlStyle.SMALL
+		zoomControl : true,
+		zoomControlOptions : {
+			style : google.maps.ZoomControlStyle.SMALL
 		},
-		mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeId : google.maps.MapTypeId.ROADMAP
 	};
-	
+
 	// Initialize variables
-	map = new google.maps.Map(document.getElementById("map_canvas"), misOpciones);
+	map = new google.maps.Map(document.getElementById("map_canvas"),
+			misOpciones);
 	directionsService = new google.maps.DirectionsService();
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	geocoder = new google.maps.Geocoder();
-	
+
 	directionsDisplay.setMap(map);
 }
 
-function _geocodingPoints(from, to){
+function _geocodingPoints(from, to) {
 	_geocodingPoint(from);
 	_geocodingPoint(to);
 }
 
-function _geocodingPoint(point){
-	geocoder.geocode( { 'address': point}, function(results, status) {
+function _geocodingPoint(point) {
+	geocoder.geocode({
+		'address' : point
+	}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			var marker = new google.maps.Marker({
-				map: map, 
-				position: results[0].geometry.location,
-				title: point
+				map : map,
+				position : results[0].geometry.location,
+				title : point
 			});
-			marker.setMap(map);
+			markers.push(marker);
 		} else {
 			alert("Lo sentimos, " + point + " no hemos podido localizarlo :(");
 		}
-	});	
+	});
 }
 
-function _generateRandomTravelers(origin){
-	geocoder.geocode( { 'address': origin}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			var latlng = results[0].geometry.location;
-			for(var i = 0; i < 4; i++){
-				var marker = new google.maps.Marker({
-					map: map, 
-					position: _generateRandomLatLong(latlng),
-					title: _obtainRandomName()
-				});
-				
-				google.maps.event.addListener(marker,'click',function() {
-				  alert(this.title);
-				});
-				
-				$("#closer_travelers").append('<li>' + marker.title + '<input type="checkbox" checked="true"></li>');
-			}
-		} 
-	});	
+function _generateRandomTravelers(origin) {
+	geocoder
+			.geocode(
+					{
+						'address' : origin
+					},
+					function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							var latlng = results[0].geometry.location;
+							map.setCenter(latlng);
+							for ( var i = 0; i < 4; i++) {
+								var marker = new google.maps.Marker({
+									map : map,
+									position : _generateRandomLatLong(latlng),
+									title : _obtainRandomName()
+								});
+
+								google.maps.event.addListener(marker, 'click',
+										function() {
+											alert(this.title);
+										});
+
+								markers.push(marker);
+
+								$("#closer_travelers")
+										.append(
+												'<li><label><input type="checkbox" id="'
+														+ (marker.title
+																+ '|'
+																+ marker.position
+																		.lat()
+																+ '|' + marker.position
+																.lng())
+														+ '" checked="true" onchange="showHideMarker(event)"/>'
+														+ marker.title
+														+ '</label></li>');
+							}
+						}
+					});
 }
 
-function _generateRandomLatLong(latlng){
+function _generateRandomLatLong(latlng) {
 	var radius = 1000; // meters
 	var latitude = latlng.lat();
 	var longitude = latlng.lng();
 
-    // Convert radius from meters to degrees
-    var radiusInDegrees = radius / 111000;
+	// Convert radius from meters to degrees
+	var radiusInDegrees = radius / 111000;
 
-    var u = Math.random();
-    var v = Math.random();
-    var w = radiusInDegrees * Math.sqrt(u);
-    var t = 2 * Math.PI * v;
-    var x = w * Math.cos(t);
-    var y = w * Math.sin(t);
+	var u = Math.random();
+	var v = Math.random();
+	var w = radiusInDegrees * Math.sqrt(u);
+	var t = 2 * Math.PI * v;
+	var x = w * Math.cos(t);
+	var y = w * Math.sin(t);
 
-    // Adjust the x-coordinate for the shrinking of the east-west distances
-    var new_x = x / Math.cos(latitude);
+	// Adjust the x-coordinate for the shrinking of the east-west distances
+	var new_x = x / Math.cos(latitude);
 
-    var foundLongitude = new_x + longitude;
-    var foundLatitude = y + latitude;	
-    
-    return new google.maps.LatLng(foundLatitude, foundLongitude);
+	var foundLongitude = new_x + longitude;
+	var foundLatitude = y + latitude;
+
+	return new google.maps.LatLng(foundLatitude, foundLongitude);
 }
 
-function _obtainRandomName(){
+function _obtainRandomName() {
 	return travelerName[Math.floor(Math.random() * (travelerName.length - 1))];
 }
 
-function _createRoute(from, to){
+function _createRoute(from, to) {
 	var request = {
-		origin: from, 
-		destination: to,
-		travelMode: google.maps.DirectionsTravelMode.DRIVING
+		origin : from,
+		destination : to,
+		travelMode : google.maps.DirectionsTravelMode.DRIVING
 	};
 	directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {

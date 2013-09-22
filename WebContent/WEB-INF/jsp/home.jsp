@@ -20,29 +20,18 @@
 		</ul> 
 	</nav>
 	<div id="main_wrapper">
-		<div class="left_column">
-			<div class="help">
-				<h3>Bienvenido</h3>
+		<div class="up_row">
+			<div class="help">			
 				<p>Ahora mismo estás disfrutando de un primer prototipo de
-					carpooling. Aquí te mostramos algunas de las características que te
-					ayudarán a que tus viajes al trabajo sean a la vez más divertidos y
+					carpooling. Te ayudaremos a que tus viajes al trabajo sean a la vez más divertidos y
 					económicos que nunca.</p>
 
 				<p>Utilizando el formulario inferior podrás seleccionar cual es
 					tu ciudad de origen, así como donde está tu lugar de trabajo.</p>
 
-				<p>A continuación, nosotros te proponemos algunos ejemplos de
-					viajeros que comparten tu lugar de origen y se dirigen también a tu
+				<p>Nosotros te proponemos algunos ejemplos de viajeros que comparten tu lugar de origen y se dirigen también a tu
 					mismo destino.</p>
 
-				<p>Gracias a los mapas de Google Maps, podrás añadir tus propios
-					marcadores así como ver en que lugar se encuentran aquellos
-					viajeros que te sugerimos.</p>
-
-				<p>Por último, queriendo siempre echarte una mano en tu día a
-					día, te sugerimos algunas gasolineras que te puedan pillar de
-					camino y, además, te damos la información acerca de sus precios
-					para que podáis buscar siempre la ruta más óptima y económica.</p>
 				<p>
 					Recuerda que, aunque esto sea un prototipo y no vayamos a guardar
 					información sobre tus rutas ahora mismo, te damos la opción de que
@@ -55,17 +44,22 @@
 				<form>
 					<input type="text" placeholder="Tu origen..." maxlength="50" size="25" id="from" /> 
 					<input type="text" placeholder="Tu destino..." maxlength="50" size="25" id="to" /> <br />
-					<button id="createRoute" type="button">Crear ruta</button>
+					<button id="createRoute" type="button">Buscar viajeros</button>
 				</form>
 			</div>
-		</div>
-		<div class="right_column">
-			<div id="map_canvas" ></div>
 			<div class="map_tools default_hide">
 				<h3>Los siguientes viajeros viven cerca de ti y se dirigen a tu mismo destino</h3>
-				<ul id="closer_travelers">
-				</ul>
+				<ul id="closer_travelers"></ul>
+				
+				<p>Una vez seleccionados los acompañantes que desees, recuerda que puedes guardar la ruta y publicarla en el muro
+				tablón general de rutas.</p>
+				
+				<button type="button">Generar Ruta</button>
+				<button type="submit">Guardar</button>
 			</div>
+		</div>
+		<div class="down_row">
+			<div id="map_canvas" ></div>
 		</div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

@@ -13,14 +13,17 @@ body{
 	height: 100%;
 }
 
+/* ******************************************************************************************* */
+/*                                       NAVIGATION BAR                                        */
+/* ******************************************************************************************* */
+
 nav{
-	widht: 100%;
+	widht: 97%;
 	height: 7%;
 	
 	background-color: rgb(0, 0, 0);
-	color: rgb(255, 255, 255);
+	color: rgb(255, 255, 255);	
 	
-	padding-top: 1%;
 	padding-left: 2%;
 	padding-right: 1%;
 }
@@ -48,65 +51,44 @@ nav a:LINK, a:VISITED{
 	color: rgb(255, 255, 255);
 	text-decoration: none;
 }
+/* ******************************************************************************************* */
 
 #main_wrapper{
 	height: 100%;
 	width: 100%;
 }
 
-div.left_column{
-	height: 100%;
-	width: 40%;
+div.up_row{
+	height: 40%;
+	width: 100%;
     background: rgba(214, 245, 255, .7);
-    float: left;
 }
 
-div.right_column{
-	height: 100%;
-	width: 60%;
-    float: right;
-}
-
-#map_canvas{
-	height: 70%;
+div.down_row{
+	height: 60%;
 	width: 100%;
 }
 
-div.map_tools{
-	width: 100%;
-	height: 30%;
-	background: rgba(93, 167, 227, .9);
-	color: rgb(255, 255, 255);
-}
-
-#closer_travelers{
-	width: 100%;
-}
-
-#closer_travelers li{
-	display: inline-block;
-	width: 25%;
-	
-}
-
-.default_hide{
-	display: none;
-}
-
+/* ******************************************************************************************* */
+/*                                                UP ROW                                       */
+/* ******************************************************************************************* */
 div.help{
 	background-color: rgba(93, 167, 227, .7);
 	color: rgb(255, 255, 255);
-	width: 98%;
-	padding: 1%;
+	width: 29%;
+	height: 100%;
+	padding-left: 1%;
+	float: left;
 }
 
 div.form{
-	margin-top: 1%;
-	padding-left: 2%;
-	width: 98%;
+	width: 20%;
+	height: 100%;
+	
+	float: left;
 }
 
-input{
+div.form input{
 	font-size: 1em;
 	height: 2em;
 	width: 70%;
@@ -115,9 +97,39 @@ input{
 	margin-bottom: 1%;
 }
 
+div.map_tools{
+	width: 50%;
+	height: 100%;
+		
+	background: rgba(93, 167, 227, .7);
+	color: rgb(255, 255, 255);
+	
+	float: left;
+}
+
+#closer_travelers{
+	width: 100%;
+}
+
+#closer_travelers li{
+	list-style: none;
+}
+
+.default_hide{
+	display: none;
+}
+
 button{
 	height: 4em;
 	width: 74%;
 	background-color: rgb(93, 167, 227);
 	color: rgb(255, 255, 255);
+}
+
+/* ******************************************************************************************* */
+/*                                        MAP CANVAS                                           */
+/* ******************************************************************************************* */
+#map_canvas{
+	height: 100%;
+	width: 100%;
 }
