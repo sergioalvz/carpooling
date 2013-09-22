@@ -21,16 +21,12 @@ $(document).ready(function(){
 		if($('#user_mail').val() === ''){
 			alert('¡Debe indicar un email a su petición para guardar la ruta!');
 		}else{		
-			var route = '';
-			
-			route += $('#user_mail').val() + '@@@';
-			route += 'from' + '@@' + fromMarker.title + '@@' + fromMarker.location.lat() + '@@' + fromMarker.location.lng() + '@@@';
-			route += 'to' + '@@' + toMarker.title + '@@' + toMarker.location.lat() + '@@' + toMarker.location.lng() + '@@@';		
-			
+			var route = '';			
+			route += $('#user_mail').val() + '@@@';			
 			for(var i = 0; i < markers.length; i++){
 				var marker = markers[i];
 				if(marker.map){
-					route += 'waypoint' + '@@' + marker.title + '@@';
+					route += marker.type + '@@' + marker.title + '@@';
 					route += marker.position.lat() + '@@' + marker.position.lng() + '@@@';
 				}
 			}		

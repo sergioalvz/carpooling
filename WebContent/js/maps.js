@@ -6,15 +6,6 @@ var infowindow = null;
 var travelerName = [ "Sergio", "Daniel", "Pablo", "Natalia", "Susana", "Juan", "Vanesa", "Gonzalo", "Lucía" ];
 var markers = [];
 
-var fromMarker = {
-	title: '',
-	location: null
-};
-var toMarker ={
-	title: '',
-	location: null
-};
-
 function lauchMap(from, to) {
 	_initialize();
 	_geocodingPoints(from, to);
@@ -46,11 +37,11 @@ function hideMarker(title, lat, lng) {
 }
 
 function _geocodingPoints(from, to) {
-	_geocodingPoint(from, fromMarker);
-	_geocodingPoint(to, toMarker);
+	_geocodingPoint(from, 'from');
+	_geocodingPoint(to, 'to');
 }
 
-function _geocodingPoint(point, myMarker) {
+function _geocodingPoint(point, type) {
 	geocoder.geocode({
 		'address' : point
 	}, function(results, status) {
@@ -60,11 +51,8 @@ function _geocodingPoint(point, myMarker) {
 				position : results[0].geometry.location,
 				title : point
 			});
-			markers.push(marker);
-			
-			myMarker.title = point;
-			myMarker.location = results[0].geometry.location;
-			
+			marker.type = type;
+			markers.push(marker);			
 		} else {
 			alert("Lo sentimos, " + point + " no hemos podido localizarlo :(");
 		}
@@ -96,7 +84,8 @@ function _generateRandomTravelers(origin) {
 											infowindow.setContent(this.title);
 									 		infowindow.open(map, this);
 										});
-
+								
+								marker.type = 'waypoint';
 								markers.push(marker);
 
 								$("#closer_travelers")
