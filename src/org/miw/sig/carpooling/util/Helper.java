@@ -1,12 +1,9 @@
 package org.miw.sig.carpooling.util;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
-import org.miw.sig.carpooling.model.Marker;
 
 public class Helper {
 
@@ -16,7 +13,7 @@ public class Helper {
      * Obtiene una propiedad de un fichero de propiedades bajo una clave
      * 
      * @param CONF_FILE
-     *            fichero properties (misma ubicación que .java)
+     *            fichero properties (misma ubicacion que .java)
      * @param key
      *            clave del fichero properties
      * 
@@ -35,27 +32,6 @@ public class Helper {
 	}
 
 	return properties.getProperty(key);
-    }
-
-    public static String buildMarkers(List<Marker> markers) {
-	String res = "";
-
-	for (Marker mark : markers) {
-	    res += mark.getLatitude() + "," + mark.getLongitude() + ";";
-	}
-
-	return res;
-    }
-
-    public static List<Marker> setMarkers(String marks) {
-
-	String[] points = marks.split(";");
-	List<Marker> markers = new ArrayList<Marker>();
-	for (String mark : points) {
-	    markers.add(new Marker(mark));
-	}
-
-	return markers;
     }
 
 }

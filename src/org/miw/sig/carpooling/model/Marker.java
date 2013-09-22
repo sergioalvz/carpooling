@@ -12,10 +12,10 @@ public class Marker {
 
     public Marker(String rs) {
 
-	String[] point = rs.split(",");
-	name = point[0];
-	latitude = point[1];
-	longitude = point[2];
+	String[] point = rs.split("@@");
+	name = point[1];
+	latitude = point[2];
+	longitude = point[3];
 
     }
 
