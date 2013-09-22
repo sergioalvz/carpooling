@@ -68,8 +68,23 @@ div.left_column{
 
 div.right_column{
 	height: 100%;
-	width: 40%;
+	width: 50%;
     float: right;
+}
+
+#map_canvas{
+	height: 70%;
+	width: 100%;
+}
+
+div.map_tools{
+	height: 30%;
+	width: 100%;
+	background: rgba(214, 245, 255, .7);
+}
+
+.default_hide{
+	display: none;
 }
 
 section.help{

@@ -6,6 +6,7 @@ $(document).ready(function(){
 			alert('Debes escribir un origen y un destino para generar el mapa :(');
 		}else{
 			lauchMap(from, to);
+			$('div.map_tools').show();
 		}
 	});
 });

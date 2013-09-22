@@ -60,12 +60,14 @@
 				</form>
 			</section>
 		</div>
-		<div id="map_canvas" class="right_column"></div>
+		<div class="right_column">
+			<div id="map_canvas" ></div>
+			<div class="map_tools default_hide"></div>
+		</div>
 	</div>
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="js/index.js"></script>
 	<script src="js/maps.js"></script>
 </body>
