@@ -1,8 +1,11 @@
 package org.miw.sig.carpooling.presentation;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.miw.sig.carpooling.model.Route;
 import org.miw.sig.carpooling.persistence.CarpoolingDAO;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -18,7 +21,8 @@ public class ShowRoutesAction extends ActionSupport implements ServletRequestAwa
 
     @Override
     public String execute() throws Exception {
-    	request.setAttribute("routes", new CarpoolingDAO().getRoutes());
+    	List<Route> routes = new CarpoolingDAO().getRoutes();
+    	request.setAttribute("routes", routes);
     	return ActionSupport.SUCCESS;
     }
 }
