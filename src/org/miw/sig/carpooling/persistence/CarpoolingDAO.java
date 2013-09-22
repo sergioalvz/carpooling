@@ -284,6 +284,7 @@ public class CarpoolingDAO implements RoutesDataService {
 
 			if (rs.first()) {
 				route = new Route();
+				route.setId(idRoute);
 				route.setEmail(rs.getString("email"));
 				route.setFrom(getMarker(rs.getInt("home")));
 				route.setTo(getMarker(rs.getInt("finish")));
