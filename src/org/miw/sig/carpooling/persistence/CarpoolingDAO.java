@@ -16,253 +16,285 @@ import org.miw.sig.carpooling.util.Helper;
 
 public class CarpoolingDAO implements RoutesDataService {
 
-    private static Logger logger = Logger.getLogger(CarpoolingDAO.class);
+	private static Logger logger = Logger.getLogger(CarpoolingDAO.class);
 
-    @Override
-    public Route saveRoute(Route route) {
+	@Override
+	public Route saveRoute(Route route) {
 
-	Marker from = saveMarker(route.getFrom());
-	Marker to = saveMarker(route.getTo());
+		Marker from = saveMarker(route.getFrom());
+		Marker to = saveMarker(route.getTo());
 
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "saveRoute");
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "saveRoute");
 
-	try {
+		try {
 
-	    ps = conn.prepareStatement(sql);
-	    ps.setString(1, route.getEmail());
-	    ps.setInt(2, from.getId());
-	    ps.setInt(3, to.getId());
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, route.getEmail());
+			ps.setInt(2, from.getId());
+			ps.setInt(3, to.getId());
 
-	    ps.execute();
+			ps.execute();
 
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(null, ps, conn);
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(null, ps, conn);
+		}
+
+		route = findId(route);
+		if (route.getMarkers() != null) {
+			for (Marker m : route.getMarkers()) {
+				m = saveMarker(m);
+				saveRouteMarker(m, route);
+			}
+		}
+		return route;
+
 	}
 
-	route = findId(route);
-	if (route.getMarkers() != null) {
-	    for (Marker m : route.getMarkers()) {
-		m = saveMarker(m);
-		saveRouteMarker(m, route);
-	    }
-	}
-	return route;
+	@Override
+	public List<Route> getRoutes() {
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getRoutes");
+		ResultSet rs = null;
+		List<Route> routes = new ArrayList<Route>();
 
-    }
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
 
-    @Override
-    public List<Route> getRoutes() {
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "getRoutes");
-	ResultSet rs = null;
-	List<Route> routes = new ArrayList<Route>();
+			while (rs.next()) {
 
-	try {
-	    ps = conn.prepareStatement(sql);
-	    rs = ps.executeQuery();
+				Route r = new Route();
+				r.setId(rs.getInt("idroutes"));
+				r.setEmail(rs.getString("email"));
+				r.setFrom(getMarker(rs.getInt("home")));
+				r.setTo(getMarker(rs.getInt("finish")));
+				r.setMarkers(getMarkers(r.getId()));
+				routes.add(r);
+			}
 
-	    while (rs.next()) {
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(rs, ps, conn);
+		}
 
-		Route r = new Route();
-		r.setId(rs.getInt("idroutes"));
-		r.setEmail(rs.getString("email"));
-		r.setFrom(new Marker(rs.getString("home")));
-		r.setTo(new Marker(rs.getString("finish")));
-		r.setMarkers(getMarkers(r.getId()));
-		routes.add(r);
-	    }
+		if (routes.size() == 0)
+			return Collections.emptyList();
+		else
+			return routes;
 
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(rs, ps, conn);
 	}
 
-	if (routes.size() == 0)
-	    return Collections.emptyList();
-	else
-	    return routes;
+	private Marker getMarker(int id) {
 
-    }
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getMarker");
+		ResultSet rs = null;
+		Marker m = null;
 
-    @Override
-    public Marker saveMarker(Marker marker) {
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
 
-	Marker m2 = findId(marker);
-	if (m2.getId() != null)
-	    return m2;
+			if (rs.first()) {
 
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "saveMarker");
+				m = new Marker();
+				m.setId(id);
+				m.setName(rs.getString("name"));
+				m.setLatitude(rs.getString("latitude"));
+				m.setLongitude(rs.getString("longitude"));
+			}
 
-	try {
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(rs, ps, conn);
+		}
 
-	    ps = conn.prepareStatement(sql);
-	    ps.setString(1, marker.getName());
-	    ps.setString(2, marker.getLatitude());
-	    ps.setString(3, marker.getLongitude());
+		return m;
 
-	    ps.execute();
-
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(null, ps, conn);
 	}
 
-	marker = findId(marker);
+	@Override
+	public Marker saveMarker(Marker marker) {
 
-	return marker;
-    }
+		Marker m2 = findId(marker);
+		if (m2.getId() != null)
+			return m2;
 
-    @Override
-    public List<Marker> getMarkers(Integer idroute) {
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "saveMarker");
 
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "getMarkers");
-	ResultSet rs = null;
-	List<Marker> markers = new ArrayList<Marker>();
+		try {
 
-	try {
-	    ps = conn.prepareStatement(sql);
-	    ps.setInt(1, idroute);
-	    rs = ps.executeQuery();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, marker.getName());
+			ps.setString(2, marker.getLatitude());
+			ps.setString(3, marker.getLongitude());
 
-	    while (rs.next()) {
+			ps.execute();
 
-		Marker m = new Marker();
-		m.setId(rs.getInt("idmarker"));
-		m.setLatitude(rs.getString("latitude"));
-		m.setLongitude(rs.getString("longitude"));
-		m.setName(rs.getString("name"));
-		markers.add(m);
-	    }
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(null, ps, conn);
+		}
 
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(rs, ps, conn);
+		marker = findId(marker);
+
+		return marker;
 	}
 
-	if (markers.size() == 0)
-	    return Collections.emptyList();
-	else
-	    return markers;
-    }
+	@Override
+	public List<Marker> getMarkers(Integer idroute) {
 
-    private void saveRouteMarker(Marker m, Route route) {
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getMarkers");
+		ResultSet rs = null;
+		List<Marker> markers = new ArrayList<Marker>();
 
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "saveMarkerRoute");
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idroute);
+			rs = ps.executeQuery();
 
-	try {
+			while (rs.next()) {
 
-	    ps = conn.prepareStatement(sql);
-	    ps.setInt(1, route.getId());
-	    ps.setInt(2, m.getId());
+				Marker m = new Marker();
+				m.setId(rs.getInt("idmarker"));
+				m.setLatitude(rs.getString("latitude"));
+				m.setLongitude(rs.getString("longitude"));
+				m.setName(rs.getString("name"));
+				markers.add(m);
+			}
 
-	    ps.execute();
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(rs, ps, conn);
+		}
 
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(null, ps, conn);
+		if (markers.size() == 0)
+			return Collections.emptyList();
+		else
+			return markers;
 	}
 
-    }
+	private void saveRouteMarker(Marker m, Route route) {
 
-    private Route findId(Route route) {
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "saveMarkerRoute");
 
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "getRoute");
-	ResultSet rs = null;
+		try {
 
-	try {
-	    ps = conn.prepareStatement(sql);
-	    ps.setString(1, route.getEmail());
-	    ps.setInt(2, route.getFrom().getId());
-	    ps.setInt(3, route.getTo().getId());
-	    rs = ps.executeQuery();
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, route.getId());
+			ps.setInt(2, m.getId());
 
-	    if (rs.first()) {
+			ps.execute();
 
-		route.setId(rs.getInt("idroutes"));
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(null, ps, conn);
+		}
 
-	    }
-
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(rs, ps, conn);
 	}
-	return route;
-    }
 
-    private Marker findId(Marker marker) {
+	private Route findId(Route route) {
 
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "getIdMarker");
-	ResultSet rs = null;
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getRoute");
+		ResultSet rs = null;
 
-	try {
-	    ps = conn.prepareStatement(sql);
-	    ps.setString(1, marker.getName());
-	    ps.setString(2, marker.getLatitude());
-	    ps.setString(3, marker.getLongitude());
-	    rs = ps.executeQuery();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, route.getEmail());
+			ps.setInt(2, route.getFrom().getId());
+			ps.setInt(3, route.getTo().getId());
+			rs = ps.executeQuery();
 
-	    if (rs.first()) {
+			if (rs.first()) {
 
-		marker.setId(rs.getInt("idmarkers"));
+				route.setId(rs.getInt("idroutes"));
 
-	    }
+			}
 
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(rs, ps, conn);
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(rs, ps, conn);
+		}
+		return route;
 	}
-	return marker;
 
-    }
+	private Marker findId(Marker marker) {
 
-    @Override
-    public Route getRoute(Integer idRoute) {
-	Connection conn = JDBCHelper.connect();
-	PreparedStatement ps = null;
-	String sql = Helper.getProperty(Constants.QUERIES, "getRouteById");
-	ResultSet rs = null;
-	Route route = null;
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getIdMarker");
+		ResultSet rs = null;
 
-	try {
-	    ps = conn.prepareStatement(sql);
-	    ps.setInt(1, idRoute);
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, marker.getName());
+			ps.setString(2, marker.getLatitude());
+			ps.setString(3, marker.getLongitude());
+			rs = ps.executeQuery();
 
-	    rs = ps.executeQuery();
+			if (rs.first()) {
 
-	    if (rs.first()) {
-		route = new Route();
-		route.setEmail(rs.getString("email"));
-		route.setFrom(new Marker(rs.getString("home")));
-		route.setTo(new Marker(rs.getString("finish")));
-		route.setMarkers(getMarkers(route.getId()));
-	    }
-	} catch (SQLException e) {
-	    logger.error(e.getMessage());
-	} finally {
-	    JDBCHelper.close(rs, ps, conn);
+				marker.setId(rs.getInt("idmarkers"));
+
+			}
+
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(rs, ps, conn);
+		}
+		return marker;
+
 	}
-	return route;
-    }
+
+	@Override
+	public Route getRoute(Integer idRoute) {
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getRouteById");
+		ResultSet rs = null;
+		Route route = null;
+
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, idRoute);
+
+			rs = ps.executeQuery();
+
+			if (rs.first()) {
+				route = new Route();
+				route.setEmail(rs.getString("email"));
+				route.setFrom(new Marker(rs.getString("home")));
+				route.setTo(new Marker(rs.getString("finish")));
+				route.setMarkers(getMarkers(route.getId()));
+			}
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+		} finally {
+			JDBCHelper.close(rs, ps, conn);
+		}
+		return route;
+	}
 
 }
