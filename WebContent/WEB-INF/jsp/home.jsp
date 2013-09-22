@@ -39,23 +39,22 @@
 					sección de <b>Rutas</b> y ya puedas empezar a formar parte del
 					movimiento <b>carpooling</b>.
 				</p>
-			</div>
-			<div class="form">
 				<form>
 					<input type="text" placeholder="Tu origen..." maxlength="50" size="25" id="from" /> 
-					<input type="text" placeholder="Tu destino..." maxlength="50" size="25" id="to" /> <br />
+					<input type="text" placeholder="Tu destino..." maxlength="50" size="25" id="to" />
 					<button id="createRoute" type="button">Buscar viajeros</button>
 				</form>
 			</div>
 			<div class="map_tools default_hide">
-				<h3>Los siguientes viajeros viven cerca de ti y se dirigen a tu mismo destino</h3>
-				<ul id="closer_travelers"></ul>
-				
-				<p>Una vez seleccionados los acompañantes que desees, recuerda que puedes guardar la ruta y publicarla en el muro
-				tablón general de rutas.</p>
-				
-				<button type="button">Generar Ruta</button>
-				<button type="submit">Guardar</button>
+				<div>				
+					<p>Una vez seleccionados los acompañantes que desees, recuerda que puedes guardar la ruta y publicarla en el muro
+					tablón general de rutas.</p>
+					
+					<ul id="closer_travelers"></ul>
+					
+					<button type="button">Generar Ruta</button>
+					<button type="submit">Guardar</button>
+				</div>
 			</div>
 		</div>
 		<div class="down_row">
