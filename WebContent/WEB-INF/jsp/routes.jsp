@@ -25,10 +25,10 @@
 			<p>Estas son algunas de las rutas que han ido creando otros viajeros (Origen - Destino):</p>
 			<ul>
 				<s:iterator value="%{#request.routes}" var="route">
-					<s:url action="ShowRouteDetailsAction" var="myUrl" >
-   			 			<s:param name="routeId"><s:property value="id"/> </s:param>
+					<s:url action="ShowRouteDetailsAction" id="myUrl" >
+   			 			<s:param name="routeId" value="id"/> 
 					</s:url>					
-					<li><a href="%{myUrl}"><s:property value="from"/> - <s:property value="to"/>. Por: <s:property value="email"/></a></li>
+					<li><s:a href="%{myUrl}"><s:property value="from.name"/> - <s:property value="to.name"/>. Por: <s:property value="email"/></s:a></li>
 				</s:iterator>
 			</ul>
 		</section>		
