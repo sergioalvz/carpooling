@@ -21,7 +21,7 @@
 	</nav>
 	<div id="main_wrapper">
 		<div class="left_column">
-			<section class="help">
+			<div class="help">
 				<h3>Bienvenido</h3>
 				<p>Ahora mismo estás disfrutando de un primer prototipo de
 					carpooling. Aquí te mostramos algunas de las características que te
@@ -50,15 +50,14 @@
 					sección de <b>Rutas</b> y ya puedas empezar a formar parte del
 					movimiento <b>carpooling</b>.
 				</p>
-			</section>
-			<section class="form">
+			</div>
+			<div class="form">
 				<form>
-					<input type="text" placeholder="Tu origen..." maxlength="20"
-						size="25" id="from" /> <input type="text"
-						placeholder="Tu destino..." maxlength="20" size="25" id="to" /> <br />
+					<input type="text" placeholder="Tu origen..." maxlength="50" size="25" id="from" /> 
+					<input type="text" placeholder="Tu destino..." maxlength="50" size="25" id="to" /> <br />
 					<button id="createRoute" type="button">Crear ruta</button>
 				</form>
-			</section>
+			</div>
 		</div>
 		<div class="right_column">
 			<div id="map_canvas" ></div>

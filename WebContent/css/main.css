@@ -57,18 +57,13 @@ nav a:LINK, a:VISITED{
 div.left_column{
 	height: 100%;
 	width: 40%;
-	padding-top: 1%;
-	padding-bottom: 1%;
-	padding-left: 5%;
-	padding-right: 5%;
-	
     background: rgba(214, 245, 255, .7);
     float: left;
 }
 
 div.right_column{
 	height: 100%;
-	width: 50%;
+	width: 60%;
     float: right;
 }
 
@@ -78,24 +73,26 @@ div.right_column{
 }
 
 div.map_tools{
-	height: 30%;
 	width: 100%;
-	background: rgba(214, 245, 255, .7);
+	height: 30%;
+	background: rgba(93, 167, 227, .7);
 }
 
 .default_hide{
 	display: none;
 }
 
-section.help{
-	padding: 3%;
+div.help{
 	background-color: rgba(93, 167, 227, .7);
 	color: rgb(255, 255, 255);
-	width: 80%
+	width: 98%;
+	padding: 1%;
 }
 
-section.form{
-	margin-top: 3%;
+div.form{
+	margin-top: 1%;
+	padding-left: 2%;
+	width: 98%;
 }
 
 input{
