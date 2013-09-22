@@ -145,17 +145,6 @@ section.routes h3{
 	padding: 0;
 }
 
-section.routes ul{	
-    height: 60%; /*your fixed height*/
-    -webkit-column-count: 3;
-       -moz-column-count: 3;
-            column-count: 3; /*3 in those rules is just placeholder -- can be anything*/
-}
-
-section.routes ul li {
-    display: inline-block; /*necessary*/
-}
-
 .hidden{
 	display: none;
 }
