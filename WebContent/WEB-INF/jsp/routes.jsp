@@ -24,12 +24,18 @@
 			<h2>Rutas</h2>
 			<p>Estas son algunas de las rutas que han ido creando otros viajeros (Origen - Destino):</p>
 			<ul>
-				<s:iterator value="routes" var="route">
-					<li><s:property value="from"/> - <s:property value="to"/>. Por: <s:property value="email"/> </li>
+				<s:iterator value="%{#request.routes}" var="route">
+					<li><a href="#" class="route"><s:property value="from"/> - <s:property value="to"/>. Por: <s:property value="email"/></a></li>
 				</s:iterator>
 			</ul>
 		</div>
-		<div class="right_column"></div>
+		<div class="right_column" id="map_canvas"></div>
 	</div>
+		<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="js/routes.js"></script>
+	<script src="js/maps.js"></script>
 </body>
 </html>

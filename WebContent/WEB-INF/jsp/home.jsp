@@ -67,5 +67,6 @@
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<script src="js/index.js"></script>
+	<script src="js/maps.js"></script>
 </body>
 </html>
