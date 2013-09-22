@@ -3,7 +3,7 @@ package org.miw.sig.carpooling.model;
 import java.util.List;
 
 public class Route {
-    private Long id;
+    private Integer id;
     private String email;
     private Marker from;
     private Marker to;
@@ -45,11 +45,11 @@ public class Route {
 	this.email = email;
     }
 
-    public Long getId() {
+    public Integer getId() {
 	return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
 	this.id = id;
     }
 

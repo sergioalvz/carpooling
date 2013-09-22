@@ -16,10 +16,13 @@ import org.miw.sig.carpooling.util.Helper;
 
 public class CarpoolingDAO implements RoutesDataService {
 
-    Logger logger = Logger.getLogger(CarpoolingDAO.class);
+    private static Logger logger = Logger.getLogger(CarpoolingDAO.class);
 
     @Override
-    public void saveRoute(Route route) {
+    public Route saveRoute(Route route) {
+
+	Marker from = saveMarker(route.getFrom());
+	Marker to = saveMarker(route.getTo());
 
 	Connection conn = JDBCHelper.connect();
 	PreparedStatement ps = null;
@@ -29,13 +32,8 @@ public class CarpoolingDAO implements RoutesDataService {
 
 	    ps = conn.prepareStatement(sql);
 	    ps.setString(1, route.getEmail());
-	    ps.setString(2, route.getFrom().getName() + ","
-		    + route.getFrom().getLatitude() + ","
-		    + route.getFrom().getLongitude());
-	    ps.setString(3, route.getTo().getName() + ","
-		    + route.getTo().getLatitude() + ","
-		    + route.getTo().getLongitude());
-	    ps.setString(4, Helper.buildMarkers(route.getMarkers()));
+	    ps.setInt(2, from.getId());
+	    ps.setInt(3, to.getId());
 
 	    ps.execute();
 
@@ -44,6 +42,15 @@ public class CarpoolingDAO implements RoutesDataService {
 	} finally {
 	    JDBCHelper.close(null, ps, conn);
 	}
+
+	route = findId(route);
+
+	for (Marker m : route.getMarkers()) {
+	    m = saveMarker(m);
+	    saveRouteMarker(m, route);
+	}
+
+	return route;
 
     }
 
@@ -62,10 +69,11 @@ public class CarpoolingDAO implements RoutesDataService {
 	    while (rs.next()) {
 
 		Route r = new Route();
+		r.setId(rs.getInt("idroutes"));
 		r.setEmail(rs.getString("email"));
 		r.setFrom(new Marker(rs.getString("home")));
 		r.setTo(new Marker(rs.getString("finish")));
-		r.setMarkers(Helper.setMarkers(rs.getString("markers")));
+		r.setMarkers(getMarkers(r.getId()));
 		routes.add(r);
 	    }
 
@@ -79,6 +87,152 @@ public class CarpoolingDAO implements RoutesDataService {
 	    return Collections.emptyList();
 	else
 	    return routes;
+
+    }
+
+    @Override
+    public Marker saveMarker(Marker marker) {
+
+	Marker m2 = findId(marker);
+	if (m2.getId() != null)
+	    return m2;
+
+	Connection conn = JDBCHelper.connect();
+	PreparedStatement ps = null;
+	String sql = Helper.getProperty(Constants.QUERIES, "saveMarker");
+
+	try {
+
+	    ps = conn.prepareStatement(sql);
+	    ps.setString(1, marker.getName());
+	    ps.setString(2, marker.getLatitude());
+	    ps.setString(3, marker.getLongitude());
+
+	    ps.execute();
+
+	} catch (SQLException e) {
+	    logger.error(e.getMessage());
+	} finally {
+	    JDBCHelper.close(null, ps, conn);
+	}
+
+	marker = findId(marker);
+
+	return marker;
+    }
+
+    @Override
+    public List<Marker> getMarkers(Integer idroute) {
+
+	Connection conn = JDBCHelper.connect();
+	PreparedStatement ps = null;
+	String sql = Helper.getProperty(Constants.QUERIES, "getMarkers");
+	ResultSet rs = null;
+	List<Marker> markers = new ArrayList<Marker>();
+
+	try {
+	    ps = conn.prepareStatement(sql);
+	    ps.setInt(1, idroute);
+	    rs = ps.executeQuery();
+
+	    while (rs.next()) {
+
+		Marker m = new Marker();
+		m.setId(rs.getInt("idmarker"));
+		m.setLatitude(rs.getString("latitude"));
+		m.setLongitude(rs.getString("longitude"));
+		m.setName(rs.getString("name"));
+		markers.add(m);
+	    }
+
+	} catch (SQLException e) {
+	    logger.error(e.getMessage());
+	} finally {
+	    JDBCHelper.close(rs, ps, conn);
+	}
+
+	if (markers.size() == 0)
+	    return Collections.emptyList();
+	else
+	    return markers;
+    }
+
+    private void saveRouteMarker(Marker m, Route route) {
+
+	Connection conn = JDBCHelper.connect();
+	PreparedStatement ps = null;
+	String sql = Helper.getProperty(Constants.QUERIES, "saveMarkerRoute");
+
+	try {
+
+	    ps = conn.prepareStatement(sql);
+	    ps.setInt(1, route.getId());
+	    ps.setInt(2, m.getId());
+
+	    ps.execute();
+
+	} catch (SQLException e) {
+	    logger.error(e.getMessage());
+	} finally {
+	    JDBCHelper.close(null, ps, conn);
+	}
+
+    }
+
+    private Route findId(Route route) {
+
+	Connection conn = JDBCHelper.connect();
+	PreparedStatement ps = null;
+	String sql = Helper.getProperty(Constants.QUERIES, "getRoute");
+	ResultSet rs = null;
+
+	try {
+	    ps = conn.prepareStatement(sql);
+	    ps.setString(1, route.getEmail());
+	    ps.setInt(2, route.getFrom().getId());
+	    ps.setInt(3, route.getTo().getId());
+	    rs = ps.executeQuery();
+
+	    if (rs.first()) {
+
+		route.setId(rs.getInt("idroutes"));
+
+	    }
+
+	} catch (SQLException e) {
+	    logger.error(e.getMessage());
+	} finally {
+	    JDBCHelper.close(rs, ps, conn);
+	}
+	return route;
+    }
+
+    private Marker findId(Marker marker) {
+
+	Connection conn = JDBCHelper.connect();
+	PreparedStatement ps = null;
+	String sql = Helper.getProperty(Constants.QUERIES, "getIdMarker");
+	ResultSet rs = null;
+
+	try {
+	    ps = conn.prepareStatement(sql);
+	    ps.setString(1, marker.getName());
+	    ps.setString(2, marker.getLatitude());
+	    ps.setString(3, marker.getLongitude());
+	    rs = ps.executeQuery();
+
+	    if (rs.first()) {
+
+		marker.setId(rs.getInt("idmarkers"));
+
+	    }
+
+	} catch (SQLException e) {
+	    logger.error(e.getMessage());
+	} finally {
+	    JDBCHelper.close(rs, ps, conn);
+	}
+	return marker;
 
     }
 
