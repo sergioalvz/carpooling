@@ -29,8 +29,10 @@ $(document).ready(function(){
 			
 			for(var i = 0; i < markers.length; i++){
 				var marker = markers[i];
-				route += 'waypoint' + '@@' + marker.title + '@@';
-				route += marker.position.lat() + '@@' + marker.position.lng() + '@@@';
+				if(marker.map){
+					route += 'waypoint' + '@@' + marker.title + '@@';
+					route += marker.position.lat() + '@@' + marker.position.lng() + '@@@';
+				}
 			}		
 			
 			$('#savedRoute').val(route);
