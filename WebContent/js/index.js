@@ -7,6 +7,7 @@ $(document).ready(function(){
 		}else{
 			lauchMap(from, to);
 			$('div.map_tools').show();
+			$('#printPanel').show();
 		}
 	});
 	

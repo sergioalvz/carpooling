@@ -108,11 +108,14 @@ div.map_tools{
 	list-style: none;
 }
 
-.default_hide{
+.default_hidden{
 	display: none;
 }
 /* ******************************************************************************************* */
 
+#printPanel{
+	background: rgb(93, 167, 227);
+}
 
 section.about{
 	width: 100%;
@@ -133,6 +136,8 @@ section.routes{
 	
 	padding-left: 1%;
 	padding-top: 1%;
+	
+	background: rgba(214, 245, 255, .7);
 }
 
 section.routes h3{

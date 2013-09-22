@@ -38,7 +38,7 @@
 					<button id="findTravelers" type="button">Buscar viajeros</button>
 				</form>
 			</div>
-			<div class="map_tools default_hide">
+			<div class="map_tools default_hidden">
 				<div>				
 					<p>Recuerda,</p>
 					<p>puedes guardar la ruta y publicarla en el tablón general de rutas.</p>
@@ -54,12 +54,24 @@
 			</div>
 		</div>
 		<div class="down_row">
+			<div id="printPanel" align="center" class="default_hidden">					
+					<form name="layersMap">
+						<input type="checkbox" name="tiempo" value="1" onclick="optionsLayers()" checked> Tiempo 
+						<input type="checkbox" name="nubes" value="2" onclick="optionsLayers()" checked> Nubes
+						<input type="checkbox" name="trafico" value="3" onclick="optionsLayers()" checked> Tráfico
+						<input type="checkbox" name="kml" value="4" onclick="optionsLayers()" checked> Radares DGT
+						<br />
+						<input type="checkbox" name="wmsexterno" value="5" onclick="optionsLayers()" checked> Aeropuertos
+						<input type="checkbox" name="wmspropio" value="6" onclick="optionsLayers()" checked> Vias Férreas
+						<input type="checkbox" name="wmsexternoCP" value="7" onclick="optionsLayers()" checked> Códigos Postales
+					</form>			
+				</div>
 			<div id="map_canvas" ></div>
 		</div>
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=weather"></script>
 	<script src="js/index.js"></script>
 	<script src="js/maps.js"></script>
 	
