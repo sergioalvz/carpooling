@@ -2,9 +2,8 @@ var map = null;
 var directionsService = null;
 var directionsDisplay = null;
 var geocoder = null;
-
-var travelerName = [ "Sergio", "Daniel", "Pablo", "Natalia", "Susana", "Juan",
-		"Vanesa", "Gonzalo", "Lucía" ];
+var infowindow = null;
+var travelerName = [ "Sergio", "Daniel", "Pablo", "Natalia", "Susana", "Juan", "Vanesa", "Gonzalo", "Lucía" ];
 var markers = [];
 
 function lauchMap(from, to) {
@@ -56,11 +55,11 @@ function _initialize() {
 	};
 
 	// Initialize variables
-	map = new google.maps.Map(document.getElementById("map_canvas"),
-			misOpciones);
+	map = new google.maps.Map(document.getElementById("map_canvas"), misOpciones);
 	directionsService = new google.maps.DirectionsService();
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	geocoder = new google.maps.Geocoder();
+	infowindow = new google.maps.InfoWindow();
 
 	directionsDisplay.setMap(map);
 }
@@ -88,6 +87,9 @@ function _geocodingPoint(point) {
 }
 
 function _generateRandomTravelers(origin) {
+	//clean the list of travelers
+	_clearTravelersList();
+	
 	geocoder
 			.geocode(
 					{
@@ -106,7 +108,8 @@ function _generateRandomTravelers(origin) {
 
 								google.maps.event.addListener(marker, 'click',
 										function() {
-											alert(this.title);
+											infowindow.setContent(this.title);
+									 		infowindow.open(map, this);
 										});
 
 								markers.push(marker);
@@ -157,11 +160,26 @@ function _obtainRandomName() {
 }
 
 function _createRoute(from, to) {
+	
+	var travelers = [];
+	$.each(markers, function(index, value){
+		if(value.map != null){
+			travelers.push({
+				location: value.position,
+				stopover: true
+			});
+		}
+	});
+	
 	var request = {
-		origin : from,
-		destination : to,
-		travelMode : google.maps.DirectionsTravelMode.DRIVING
+		origin: from,
+		destination: to,
+		waypoints: travelers,
+		optimizeWaypoints: true,
+		travelMode: google.maps.DirectionsTravelMode.DRIVING
+		
 	};
+	
 	directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);

@@ -32,10 +32,12 @@ nav h1{
 	width: 30%;
 	float: left;
 	font-size: 1em;
+	margin: 0;
 }
 
 nav ul{
 	float: right;
+	margin: 0;
 }
 
 nav ul li{
@@ -76,7 +78,7 @@ div.help{
 	background-color: rgba(93, 167, 227, .7);
 	color: rgb(255, 255, 255);
 	
-	width: 29%;
+	width: 39%;
 	height: 100%;
 	
 	padding-left: 1%;
@@ -85,7 +87,7 @@ div.help{
 }
 
 div.map_tools{
-	width: 67%;	
+	width: 57%;	
 	height: 100%;
 		
 	background: rgba(93, 167, 227, .7);

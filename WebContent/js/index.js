@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#createRoute').click(function(){
+	$('#findTravelers').click(function(){
 		var from = $('#from').val();
 		var to = $('#to').val();
 		if(from === '' || to === ''){
@@ -8,6 +8,21 @@ $(document).ready(function(){
 			lauchMap(from, to);
 			$('div.map_tools').show();
 		}
+	});
+	
+	$('#createRoute').click(function(){
+		var from = $('#from').val();
+		var to = $('#to').val();		
+		createRoute(from, to);		
+	});	
+	
+	$('#saveRoute').click(function(){
+		var route = '';
+		
+		route += $('#from').val() + '|';
+		var to = $('#to').val();	
+		
+		
 	});
 });
 
@@ -18,4 +33,14 @@ function showHideMarker(event){
 	}else{
 		hideMarker(split[0], split[1], split[2]);
 	}
+}
+
+function _clearTravelersList(){
+	$('#closer_travelers li').each(function(){		
+		$(this).remove();		
+	});
+}
+
+function createRoute(from, to){	
+	_createRoute(from, to);
 }

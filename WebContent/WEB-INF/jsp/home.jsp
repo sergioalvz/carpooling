@@ -35,17 +35,21 @@
 				<form>
 					<input type="text" placeholder="Tu origen..." maxlength="50" size="25" id="from" /> 
 					<input type="text" placeholder="Tu destino..." maxlength="50" size="25" id="to" />
-					<button id="createRoute" type="button">Buscar viajeros</button>
+					<button id="findTravelers" type="button">Buscar viajeros</button>
 				</form>
 			</div>
 			<div class="map_tools default_hide">
 				<div>				
-					<p>Una vez seleccionados los acompañantes que desees, recuerda que puedes guardar la ruta y publicarla en el tablón general de rutas.</p>
+					<p>Recuerda,</p>
+					<p>puedes guardar la ruta y publicarla en el tablón general de rutas.</p>
 					
 					<ul id="closer_travelers"></ul>
 					
-					<button type="button">Generar Ruta</button>
-					<button type="submit">Guardar</button>
+					<button type="button" id="createRoute">Generar Ruta</button>
+					<form>
+						<button type="submit" id="saveRoute">Guardar</button>
+						<label>Tu email <input type="email" /></label>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -58,5 +62,6 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="js/index.js"></script>
 	<script src="js/maps.js"></script>
+	<input type="hidden" id="savedRoute" />
 </body>
 </html>
