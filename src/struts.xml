@@ -16,7 +16,7 @@
 			<result>/WEB-INF/jsp/about.jsp</result>
 		</action>
 		<action name="SaveRouteAction" class="org.miw.sig.carpooling.presentation.SaveRouteAction">
-			<result>/WEB-INF/jsp/routes.jsp</result>
+			<result type="chain">ShowRoutesAction</result>
 		</action>
 		<action name="ShowRouteDetailsAction" class="org.miw.sig.carpooling.presentation.ShowRouteDetailsAction">
 			<result>/WEB-INF/jsp/route_visualizer.jsp</result>

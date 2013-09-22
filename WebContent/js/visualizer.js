@@ -65,8 +65,8 @@ function _loadRoute(){
 	}
 	
 	var request = {
-			origin: from,
-			destination: to,
+			origin: from.location,
+			destination: to.location,
 			waypoints: waypoints,
 			optimizeWaypoints: true,
 			travelMode: google.maps.DirectionsTravelMode.DRIVING
