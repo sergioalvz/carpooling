@@ -16,5 +16,4 @@
 			<result>/WEB-INF/jsp/about.jsp</result>
 		</action>
 	</package>
-
 </struts>

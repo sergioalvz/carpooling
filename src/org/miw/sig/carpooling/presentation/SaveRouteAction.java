@@ -16,26 +16,26 @@ public class SaveRouteAction extends ActionSupport {
     private Marker to;
 
     public void setMarkers(List<Marker> markers) {
-	this.markers = markers;
+    	this.markers = markers;
     }
 
     public void setFrom(Marker from) {
-	this.from = from;
+    	this.from = from;
     }
 
     public void setTo(Marker to) {
-	this.to = to;
+    	this.to = to;
     }
-
+   
     @Override
     public String execute() throws Exception {
-	Route route = new Route();
-	route.setFrom(from);
-	route.setTo(to);
-	route.setMarkers(markers);
-
-	new CarpoolingDAO().saveRoute(route);
-
-	return ActionSupport.SUCCESS;
+		Route route = new Route();
+		route.setFrom(from);
+		route.setTo(to);
+		route.setMarkers(markers);
+	
+		new CarpoolingDAO().saveRoute(route);
+	
+		return ActionSupport.SUCCESS;
     }
 }
