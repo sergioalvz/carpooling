@@ -236,4 +236,33 @@ public class CarpoolingDAO implements RoutesDataService {
 
     }
 
+	@Override
+	public Route getRoute(Integer idRoute) {
+		Connection conn = JDBCHelper.connect();
+		PreparedStatement ps = null;
+		String sql = Helper.getProperty(Constants.QUERIES, "getRouteById");
+		ResultSet rs = null;
+		Route route = null;
+
+		try {
+		    ps = conn.prepareStatement(sql);
+		    ps.setInt(1, idRoute);
+		    
+		    rs = ps.executeQuery();
+
+		    if (rs.first()) {
+		    	route = new Route();
+		    	route.setEmail(rs.getString("email"));
+		    	route.setFrom(new Marker(rs.getString("home")));
+		    	route.setTo(new Marker(rs.getString("finish")));
+		    	route.setMarkers(getMarkers(route.getId()));		    	
+		    }
+		} catch (SQLException e) {
+		    logger.error(e.getMessage());
+		} finally {
+		    JDBCHelper.close(rs, ps, conn);
+		}
+		return route;
+	}
+
 }

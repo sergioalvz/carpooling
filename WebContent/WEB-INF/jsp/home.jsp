@@ -32,13 +32,6 @@
 				<p>Nosotros te proponemos algunos ejemplos de viajeros que comparten tu lugar de origen y se dirigen también a tu
 					mismo destino.</p>
 
-				<p>
-					Recuerda que, aunque esto sea un prototipo y no vayamos a guardar
-					información sobre tus rutas ahora mismo, te damos la opción de que
-					nos envíes la ruta que hayas preparado para que la ofertemos en la
-					sección de <b>Rutas</b> y ya puedas empezar a formar parte del
-					movimiento <b>carpooling</b>.
-				</p>
 				<form>
 					<input type="text" placeholder="Tu origen..." maxlength="50" size="25" id="from" /> 
 					<input type="text" placeholder="Tu destino..." maxlength="50" size="25" id="to" />
@@ -47,8 +40,7 @@
 			</div>
 			<div class="map_tools default_hide">
 				<div>				
-					<p>Una vez seleccionados los acompañantes que desees, recuerda que puedes guardar la ruta y publicarla en el muro
-					tablón general de rutas.</p>
+					<p>Una vez seleccionados los acompañantes que desees, recuerda que puedes guardar la ruta y publicarla en el tablón general de rutas.</p>
 					
 					<ul id="closer_travelers"></ul>
 					

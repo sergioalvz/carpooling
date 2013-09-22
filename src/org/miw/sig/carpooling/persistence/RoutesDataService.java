@@ -13,4 +13,6 @@ public interface RoutesDataService {
     Marker saveMarker(Marker from);
 
     List<Marker> getMarkers(Integer idroute);
+    
+    Route getRoute(Integer idRoute);
 }

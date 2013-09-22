@@ -9,22 +9,33 @@
 </head>
 <body>
 	<nav>
-		<h1><a href="<s:url action='Home'/>">carpooling | Ahorras tú. Ahorramos todos.</a></h1>
+		<h1>
+			<a href="<s:url action='Home'/>">carpooling | Ahorras tú. Ahorramos todos.</a>
+		</h1>
 		<ul>
-			<li>
-				<a href="<s:url action='ShowRoutesAction'/>">Rutas</a> | 
-			</li>
-			<li>
-				 <a href="<s:url action='ShowAboutAction'/>">About</a> 	
-			</li>
-		</ul> 
+			<li><a href="<s:url action='ShowRoutesAction'/>">Rutas</a> |</li>
+			<li><a href="<s:url action='ShowAboutAction'/>">About</a></li>
+		</ul>
 	</nav>
 	<div id="main_wrapper">
-		<div class="left_column">
-			<h2>Sobre carpooling</h2>
-			
+		<div class="up_row">
+			<section class="about">
+				<h3>carpooling</h3>
+				<p>
+					<b>carpooling</b> es un prototipo web desarrollado para la asignatura <b>Sistemas de Información Geográfica y
+						Servicios Web</b> del Máster en Ingeniería Web de la Universidad de Oviedo.
+				</p>
+				<p>El proyecto fue desarrollado por: </p>
+				<ul>
+					<li>Pablo González Jiménez</li>
+					<li>Natalia García Menéndez</li>
+					<li>Daniel Machado Fernández</li>
+					<li>Sergio Álvarez Suárez</li>
+				</ul>
+				<p>Septiembre, 2013</p>
+			</section>
 		</div>
-		<div class="right_column"></div>
+		<div class="down_row"></div>
 	</div>
 </body>
 </html>
