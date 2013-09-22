@@ -9,7 +9,7 @@
 </head>
 <body>
 	<nav>
-		<h1><a href="<s:url action='Home'/>">carpooling | Ahorras tú. Ahorramos todos.</a></a></h1>
+		<h1><a href="<s:url action='Home'/>">carpooling | Ahorras tú. Ahorramos todos.</a></h1>
 		<ul>
 			<li>
 				<a href="<s:url action='ShowRoutesAction'/>">Rutas</a> | 
