@@ -170,7 +170,7 @@ public class CarpoolingDAO implements RoutesDataService {
 			while (rs.next()) {
 
 				Marker m = new Marker();
-				m.setId(rs.getInt("idmarker"));
+				m.setId(rs.getInt("idmarkers"));
 				m.setLatitude(rs.getString("latitude"));
 				m.setLongitude(rs.getString("longitude"));
 				m.setName(rs.getString("name"));
