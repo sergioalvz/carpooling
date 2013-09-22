@@ -21,7 +21,7 @@ public class ShowRouteDetailsAction extends ActionSupport implements ServletRequ
 	@Override
 	public String execute() throws Exception {
 		Route route = new CarpoolingDAO().getRoute(routeId);
-		request.setAttribute("route", route);
+		//TODO generate the String 'email@@@......'
 		return ActionSupport.SUCCESS;
 	}
 
